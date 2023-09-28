@@ -1,0 +1,34 @@
+<app-header></app-header>
+
+<main class="container-xxl">
+
+  <h2>
+    Products
+  </h2>
+
+  <div class="row row-cols-1 row-cols-lg-3 g-3" *ngIf='products'>
+
+    <div class="col" *ngFor="let product of products">
+      <div class="card card shadow-sm">
+        <a [routerLink]="['/products', product.id]">
+          <div *ngIf='product?.image_url; else elseBlock'>
+            <img class="card-img-top" src="{{ product.image_url }}" alt="{{product.name}}">
+          </div>
+          <ng-template #elseBlock>
+            <img class="card-img-top" src="https://placehold.co/300" alt="temp image">
+          </ng-template>            
+        </a>
+        <div class="card-body">
+          <a href="#">
+            <h5 class="card-title"><a [routerLink]="['/products', product.id]">{{ product.product.name }} - {{ product.name }}</a></h5>
+          </a>
+          <p class="card-text" *ngIf='product.excerpt' >{{ product.excerpt }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+
+<app-footer></app-footer>

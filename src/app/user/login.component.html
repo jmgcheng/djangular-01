@@ -1,0 +1,75 @@
+<div class="container-xxl">
+    <div class="row align-items-center justify-content-center" style="min-height: 100vh">
+        <div class="col col-sm-5">
+            <div class="card m-auto">
+                <div class="card-header">
+                    <h1 class="h3 fw-normal">
+                        Angular to Django Market API
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <form novalidate  
+                            (ngSubmit)="login()"
+                            [formGroup]="loginForm"
+                        >
+                        
+                        <div class="mb-3">
+                            <label class="form-label" for="userNameId">Username</label>
+                            <div class="">
+                                <input class="form-control" 
+                                    id="userNameId" 
+                                    type="text" 
+                                    placeholder="Username (required)" 
+                                    formControlName="username"
+                                    [ngClass]="{'is-invalid': (loginForm.get('username')?.touched || loginForm.get('username')?.dirty) && !loginForm.get('username')?.valid }" />
+                                <span class="invalid-feedback">
+                                    <span *ngIf="loginForm?.get('username')?.errors?.['required']">
+                                        Username is required. 
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="passwordId">Password</label>
+                            <div class="">
+                                <input class="form-control" 
+                                    id="passwordId" 
+                                    type="password" 
+                                    placeholder="Password (required)" 
+                                    formControlName="password"
+                                    [ngClass]="{'is-invalid': (loginForm.get('password')?.touched || loginForm.get('password')?.dirty) && !loginForm.get('password')?.valid }" />
+                                <span class="invalid-feedback">
+                                    <span *ngIf="loginForm?.get('password')?.errors?.['required']">
+                                        Password is required. 
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="">
+                                <button class="btn btn-primary mr-3" type="submit" style="width:80px" [disabled]="!loginForm.valid"> 
+                                    Log In 
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+                <div>
+                    <p class="text-muted p-3">
+                        A demo for ...
+                    </p>
+                </div>
+                <div class="alert alert-danger" *ngIf="loginFailed">
+                    Invalid login. Please check your credentials and try again.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>Dirty: {{ loginForm.dirty }}
+<br>Touched: {{ loginForm.touched }}
+<br>Valid: {{ loginForm.valid }}
+<br>Value: {{ loginForm.value | json }}

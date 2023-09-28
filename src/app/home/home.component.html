@@ -1,0 +1,51 @@
+<app-header></app-header>
+<!-- 
+  component header and footer are used like include() in other template language to reuse html 
+  i'm still not sure if this is the correct way to do it in angular
+-->
+
+<main class="container">
+
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <app-aside></app-aside>
+
+      </div>
+      <div class="col-md-8">
+        
+        <div>
+          <h1>Home Page</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur rutrum quam nunc, eu ultricies orci facilisis vel. Fusce a enim erat. Sed luctus quam ac nunc sagittis egestas. Duis ullamcorper id arcu non mattis. Ut malesuada pulvinar malesuada. Cras eget sagittis dolor. Nulla feugiat blandit lobortis. Nullam sodales tincidunt lorem, quis mollis sem aliquam quis.</p>
+          <p>Aliquam sed risus at diam mollis mattis sit amet ac est. Etiam consectetur sed lacus ut viverra. Integer ultricies mi arcu, a cursus dolor ullamcorper non. Phasellus tristique sapien in elementum condimentum. Phasellus sed tempus felis. Fusce urna turpis, aliquam et urna in, scelerisque elementum risus. Maecenas dignissim ultricies sagittis.</p>
+          <p>Quisque sit amet justo quis dolor bibendum accumsan ac in felis. Cras ipsum nibh, tempor sed dolor quis, commodo auctor nisi. Aenean lectus ex, lacinia in turpis nec, dignissim pulvinar eros. Nam dapibus lacinia nulla, at consequat sapien scelerisque nec. Integer ac bibendum ligula, id egestas purus. Nam et est nec elit pellentesque varius. Suspendisse eu ante id libero tempus consequat a in quam. Suspendisse nisl ex, efficitur eget maximus varius, laoreet id nisl. Curabitur nec scelerisque nunc, suscipit porta massa.</p>
+          <p>Cras pellentesque venenatis purus nec interdum. Integer pellentesque eleifend eleifend. Curabitur fermentum nibh sed sapien efficitur sagittis. Curabitur auctor fringilla erat, eu ornare dolor tincidunt vel. Vestibulum convallis dui vel mattis rhoncus. Sed maximus, tellus nec condimentum imperdiet, metus augue cursus justo, ut blandit arcu metus vel lacus. Donec maximus ullamcorper libero pulvinar vehicula. Integer efficitur malesuada massa eu fringilla. Proin sit amet laoreet magna, ac faucibus mi. Suspendisse at metus mi. Sed cursus sem eu lectus dictum porta. Sed porta elit a tincidunt tincidunt. Aliquam porta nisi consectetur enim bibendum pulvinar. Suspendisse at sapien mollis, euismod arcu a, maximus neque.</p>
+          <p>Etiam placerat urna et faucibus feugiat. Sed rutrum nibh in velit semper eleifend. Aliquam quis vulputate magna. Aenean finibus tincidunt justo laoreet cursus. Maecenas massa sapien, suscipit eu fermentum quis, facilisis at massa. Morbi rutrum nisl nec dui luctus, placerat dictum ante venenatis. Aliquam non eros erat. Integer tristique nulla lacus, sagittis aliquam nisi eleifend id. Suspendisse et pulvinar erat. Nulla eleifend quam ut vehicula semper. Donec tristique, felis sed dapibus aliquet, nisi nisi blandit justo, sit amet bibendum velit tortor at turpis. Integer enim mi, blandit ac sapien mattis, tempor lobortis ipsum. Ut id metus nisl. Mauris venenatis dui et massa tempus lobortis in et mauris. Praesent aliquam lacus sed risus consectetur ultricies.</p>
+        </div>
+
+        <div *ngIf='products'>
+          <h2>Product Sample <i class="fa fa-shopping-cart" aria-hidden="true"></i></h2> 
+
+          <div class="card-deck">
+            <div class="card" *ngFor='let product of products'>
+              <a [routerLink]="['/products', product.id]"><img class="card-img-top" src="https://placehold.co/350x180" alt="Card image cap"></a>
+              <div class="card-body">
+                <h5 class="card-title"><a [routerLink]="['/products', product.id]">{{ product.product.name }} - {{ product.name }}</a></h5>
+                <p class="card-text" *ngIf='product.excerpt' >{{ product.excerpt }}</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+</main>
+
+<app-footer></app-footer>

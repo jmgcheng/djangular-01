@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import "~bootstrap/dist/css/bootstrap.min.css"; */
+@import "~font-awesome/css/font-awesome.min.css";
+
+/*
+	para mawala ang scrollbar. Sa firefox lng dili mu gana
+*/
+#nav-tags::-webkit-scrollbar {
+    display: none;
+}
+
+/*
+	nag add lng ko kay bootstrap kutob lng mt-5
+*/
+.mt-6 {
+	margin-top: 4rem !important
+}
