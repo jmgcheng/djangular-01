@@ -11,6 +11,12 @@ import { AuthService } from '../user/auth.service';
 })
 export class ProductService {
   private apiUrl = 'http://localhost:8000/';
+  /* 
+    http://localhost:8000/
+      - this was an instance of customUserBlogProdInvApi01
+        - https://github.com/jmgcheng/customUserBlogProdInvApi01
+        - Python - Django - Basic User Registration/Authentication, Blog, Product, Inventory, and API
+  */  
   private apiProductsUrl = 'api/products';
   private apiPurchasesUrl = 'api/purchases';
   private apiSalesUrl = 'api/sales';
@@ -62,6 +68,7 @@ export class ProductService {
         );
     }
     else {
+      // this should be error handler rather than returning a sample data
       return this.sampleProduct();
     }
   }

@@ -12,9 +12,27 @@ import { IUser } from './iuser';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8000/';
+  /* 
+    http://localhost:8000/
+      - this was an instance of customUserBlogProdInvApi01
+        - https://github.com/jmgcheng/customUserBlogProdInvApi01
+        - Python - Django - Basic User Registration/Authentication, Blog, Product, Inventory, and API
+  */
   private apiLoginUrl = 'api/api-token-auth/';
+
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
-  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();  
+  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  /* 
+    isAuthenticatedSubject, isAuthenticated$
+      - just used in updating authentication state
+      - this is the first the I used this not together with getting data in database
+      - its use here just like a simple variable flag
+      - this might be set below but was not really used
+      - part provided by chatgpt
+    isAuthenticated$
+      - supposedly to be used in a template like isAuthenticated$ | async
+  */
+
 
   currentUser?: IUser | undefined;
 
@@ -26,14 +44,12 @@ export class AuthService {
     return this.http.post<{token: string}>(this.apiUrl + this.apiLoginUrl, user, { headers })
       .pipe(
         map(response => {
-          if (response.token) {
+          if (response.token) { // If a token is present in the response, it's a successful login
             const userObject = {
               username: user.username,
               token: response.token
             };
 
-            // If a token is present in the response, it's a successful login
-            // localStorage.setItem('token', response.token);
             localStorage.setItem('user', JSON.stringify(userObject));
             
             // Update the authentication state.

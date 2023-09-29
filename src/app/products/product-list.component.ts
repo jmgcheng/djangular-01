@@ -10,7 +10,6 @@ import { Subscription } from 'rxjs';
 })
 export class ProductListComponent {
   sub!: Subscription;
-  // data: IProductVariation[] = [];
   products: IProductVariation[] = [];
 
   constructor(private productService: ProductService) { }
@@ -25,6 +24,12 @@ export class ProductListComponent {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+    /* 
+      why unsubscribe
+        - Memory Management
+        - Preventing Unexpected Behavior
+        - Resource Cleanup
+    */
   }
 
 }

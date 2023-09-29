@@ -14,6 +14,12 @@ import { ProductService } from '../products/product.service';
 })
 export class SaleService {
   private apiUrl = 'http://127.0.0.1:8000/';
+  /* 
+    http://localhost:8000/
+      - this was an instance of customUserBlogProdInvApi01
+        - https://github.com/jmgcheng/customUserBlogProdInvApi01
+        - Python - Django - Basic User Registration/Authentication, Blog, Product, Inventory, and API
+  */  
   private apiSalesUrl = 'api/sales';
 
   constructor(private http: HttpClient, private authService: AuthService, private productService: ProductService) { }

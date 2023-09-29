@@ -20,14 +20,17 @@ export class ProductDetailComponent {
     this.sub = this.productService.getProduct(id).subscribe({
       next: product => {
         this.product = product;
-        // console.log('hermit1');
-        // console.log(this.product);
-        // console.log('hermit1');
       }
     });
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+    /* 
+      why unsubscribe
+        - Memory Management
+        - Preventing Unexpected Behavior
+        - Resource Cleanup
+    */
   }
 }

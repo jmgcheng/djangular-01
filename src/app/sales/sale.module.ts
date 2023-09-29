@@ -22,17 +22,17 @@ import { AuthGuard } from '../user/auth.guard';
       {
         path: 'sales',
         component: SaleListComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard],     // make sure only login user can check this page
       },
       {
         path: 'sales/:id',
         component: SaleDetailComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard],     // make sure only login user can check this page
       },
       {
         path: 'sales/:id/edit',
         component: SaleEditComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard],     // make sure only login user can check this page
       },
     ]),
 

@@ -16,6 +16,8 @@ import { SharedModule } from '../shared/shared.module';
   import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
   import { InMemoryDataService } from './in-memory-data.service';
   HttpClientInMemoryWebApiModule and InMemoryDataService for mock api call
+    - started commenting this when we started calling real api links
+    - it seems to blocks all other api calls and can't make a real call if its here
 */
 
 import { AuthGuard } from '../user/auth.guard';
@@ -31,16 +33,20 @@ import { AuthGuard } from '../user/auth.guard';
       { 
         path: 'products/:id', 
         component: ProductDetailComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard],     // make sure only login user can check this page
       },
       { 
         path: 'products', 
         component: ProductListComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard],     // make sure only login user can check this page
       },
     ]),
 
-    // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 500 }),
+    /* 
+      HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 500 }),
+        - started commenting this when we started calling real api links
+        - it seems to blocks all other api calls and can't make a real call if its here      
+    */
     
     SharedModule,
     

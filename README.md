@@ -110,3 +110,78 @@ ng g s products/in-memory-data --skip-tests --flat --dry-run
 - product-detail.component.ts
 - product-detail.component.html
 
+## Step 9 - setup user authentication, purchases, sales to connect api(customUserBlogProdInvApi01 - https://github.com/jmgcheng/customUserBlogProdInvApi01)
+- create user interface
+- create auth.service.ts
+- create user.module.ts
+```
+ng g m user/user --flat -m app --dry-run
+```	
+- generate login component
+```
+ng g c user/login --flat --skip-tests --dry-run
+```	
+- create user class
+```
+ng generate class user/user --skip-tests --dry-run
+```
+- create auth guard
+```
+ng generate guard user/auth --skip-tests --dry-run
+```
+- create purchases module
+```
+ng g m purchases/purchase --flat -m app --dry-run
+```
+- generate purchase interface
+```
+ng g i purchases/ipurchase --dry-run
+```
+- generate purchases service
+```
+ng g s purchases/purchase --skip-tests --flat --dry-run
+```
+- create purchase class
+```
+ng generate class purchases/purchase --skip-tests --dry-run
+```
+- generate purchase-list component
+```
+ng g c purchases/purchase-list --flat --skip-tests -m purchases/purchase.module --dry-run
+```
+- generate purchases detail
+```
+ng g c purchases/purchase-detail --flat --skip-tests -m purchases/purchase.module --dry-run
+```
+- generate purchases edit
+```
+ng g c purchases/purchase-edit --flat --skip-tests -m purchases/purchase.module --dry-run
+```
+- create sales module
+```
+ng g m sales/sale --flat -m app --dry-run
+```
+- generate sale interface
+```
+ng g i sales/isale --dry-run
+```
+- generate sales service
+```
+ng g s sales/sale --skip-tests --flat --dry-run
+```
+- create sale class
+```
+ng generate class sales/sale --skip-tests --dry-run
+```
+- generate sale-list component
+```
+ng g c sales/sale-list --flat --skip-tests -m sales/sale.module --dry-run
+```
+- generate sales detail
+```
+ng g c sales/sale-detail --flat --skip-tests -m sales/sale.module --dry-run
+```
+- generate sales edit
+```
+ng g c sales/sale-edit --flat --skip-tests -m sales/sale.module --dry-run
+```

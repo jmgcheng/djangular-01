@@ -14,6 +14,12 @@ import { ProductService } from '../products/product.service';
 })
 export class PurchaseService {
   private apiUrl = 'http://127.0.0.1:8000/';
+  /* 
+    http://localhost:8000/
+      - this was an instance of customUserBlogProdInvApi01
+        - https://github.com/jmgcheng/customUserBlogProdInvApi01
+        - Python - Django - Basic User Registration/Authentication, Blog, Product, Inventory, and API
+  */  
   private apiPurchasesUrl = 'api/purchases';
 
   constructor(private http: HttpClient, private authService: AuthService, private productService: ProductService) { }
@@ -48,6 +54,7 @@ export class PurchaseService {
         );
     }
     else {
+      // this should be an error handling rather than sample data
       return this.samplePurchase();
     }
   }
@@ -72,11 +79,22 @@ export class PurchaseService {
 
     // Fetch the single purchase by ID
     const purchase$ = this.http.get<IPurchase>(`${this.apiUrl}${this.apiPurchasesUrl}/${id}`, { headers });
+    /* 
+      ${this.apiUrl}${this.apiPurchasesUrl}/${id}
+        - note that sometimes endpoint ending with / or no slash produce 500 internal server error
+          - check Postman if you need trailing slash
+    */
 
     // Fetch the products
     const products$ = this.productService.products$;
 
     // Combine the purchase and products using forkJoin
+    /* 
+      forkJoin
+        - chatgpt suggested this
+          - need to practice with simple code to understand difference with others
+        - this is the code that made sure each product_detail.product_variation.id will have a product name
+    */
     return forkJoin([purchase$, products$]).pipe(
       map(([purchase, products]) => {
         if (!purchase) {

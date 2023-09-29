@@ -20,9 +20,9 @@ export class PurchaseDetailComponent {
     this.sub = this.purchaseService.getPurchaseWithProductDetails(id).subscribe({
       next: purchase => {
         this.purchase = purchase;
-        console.log('hermit1');
-        console.log(this.purchase);
-        console.log('hermit1');
+        // console.log('hermit1');
+        // console.log(this.purchase);
+        // console.log('hermit1');
       }
     });
   }

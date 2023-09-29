@@ -67,6 +67,11 @@ export class PurchaseEditComponent implements OnInit {
 
       }
     );
+    /* 
+      this.route.paramMap.subscribe
+        - there are times when user came from purchase/1/edit page then clicks Create new purchase so url will change to purchase/0/edit
+          - if you don't do this, form purge/refresh will not trigger
+    */
 
 
     //
@@ -76,15 +81,24 @@ export class PurchaseEditComponent implements OnInit {
       Validators.maxLength(30)]],
       purchase_detail: this.fb.array([], [Validators.required])
     });
+    /* 
+      this.purchaseForm
+        - i can say now that its much better to setup the form in the component rather than setting ui templates with FormControlName and other binders
+          - you can do ui first as long as you dont put the controls to avoid annoying errors
+    */
 
   }
 
   displayPurchase(purchase: IPurchase | undefined): void {
+    /* 
+      if (this.purchaseForm)
+        - reset form first before populating
+    */
     if (this.purchaseForm) {
       this.purchaseForm.reset();
-      this.purchaseForm.setControl('purchase_detail', this.fb.array([]));
+      this.purchaseForm.setControl('purchase_detail', this.fb.array([])); // empty the formarray(purchase_details)
     }
-    this.purchase = purchase;
+    this.purchase = purchase; // idk if this is needed here as we already done this inside subscribe of observable
 
     if (this.purchase?.id === 0) {
       this.pageTitle = 'Add Purchase';
@@ -114,7 +128,7 @@ export class PurchaseEditComponent implements OnInit {
     this.purchase_detail.removeAt(index);
     this.purchase_detail.markAsDirty();
 
-    if (this.purchase_detail.length == 0) {
+    if (this.purchase_detail.length == 0) { // if 0, you deleted all the FormArray as to why we need to push a new fresh one
       this.purchase_detail.push(this.buildPurchaseDetail(0, 0));
     }
 
@@ -130,7 +144,7 @@ export class PurchaseEditComponent implements OnInit {
   populatePurchase_detail(): void {
     for (const purchaseDetail of this.purchase!.purchase_detail) {
       const productVariationId = purchaseDetail.product_variation; // Get the product variation ID from your data
-      this.purchase_detail.push(this.buildPurchaseDetail(productVariationId, purchaseDetail.quantity_purchased));
+      this.purchase_detail.push(this.buildPurchaseDetail(productVariationId, purchaseDetail.quantity_purchased)); // pushing and making sure correct data is populated and selected
     }
   }
 
