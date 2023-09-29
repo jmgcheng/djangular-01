@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 import { PurchaseListComponent } from './purchase-list.component';
@@ -15,6 +16,8 @@ import { AuthGuard } from '../user/auth.guard';
     PurchaseEditComponent,
   ],
   imports: [
+    ReactiveFormsModule,
+
     RouterModule.forChild([
       {
         path: 'purchases',

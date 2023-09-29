@@ -1,1 +1,108 @@
-<p>purchase-edit works!</p>
+<app-header></app-header>
+
+<main class="container-xxl">
+
+    <div class="card">
+        <div class="card-header">
+            {{pageTitle}}
+        </div>
+
+        <div class="card-body">
+            <form novalidate (ngSubmit)="save()" [formGroup]="purchaseForm">
+
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label" for="purchaseCodeId">PO Code</label>
+                    <div class="col-md-8">
+                        <input class="form-control" id="purchaseCodeId" type="text" placeholder="PO Code (required)"
+                            formControlName="code"
+                            [ngClass]="{'is-invalid': (purchaseForm.get('code')?.touched || purchaseForm.get('code')?.dirty) && !purchaseForm.get('code')?.valid }" />
+                        <span class="invalid-feedback">
+                            <span *ngIf="purchaseForm?.get('code')?.errors?.['required']">
+                                Please enter PO Code.
+                            </span>
+                            <span *ngIf="purchaseForm?.get('code')?.errors?.['maxlength']">
+                                PO Code must be less than 50 characters.
+                            </span>
+                            <span *ngIf="purchaseForm?.get('code')?.errors?.['minlength']">
+                                PO Code must be more than 3 characters.
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+
+                <div formArrayName="purchase_detail">
+                    <div class="row mb-3" [formGroupName]="i"
+                        *ngFor="let purchaseDetail of purchase_detail.controls; let i=index">
+                        <label class="col-md-2 col-form-label" attr.for="{{'productVariationId' + i}}">
+                            Product
+                        </label>
+                        <div class="col-md-4">
+                            <select class="form-select" id="{{'productVariationId' + i}}"
+                                formControlName="product_variation">
+                                <option selected>-</option>
+                                <option *ngFor="let product of products" [value]="product.id">
+                                    {{ product.product.name }} - {{ product.name }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <input class="form-control" type="number" placeholder="1" id="{{'quantityPurchasedId' + i}}"
+                                formControlName="quantity_purchased" />
+                        </div>
+
+                        <div class="col-md-2">
+                            <button class="btn btn-outline-warning" type="button" (click)="deletePurchaseDetail(i)">
+                                Delete Product
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-2 mb-2">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" title="Add a search tag"
+                            [disabled]="!purchase_detail.valid" (click)="addPurchaseDetail()">
+                            Add Product
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="offset-md-2 col-md-4">
+                        <button class="btn btn-primary mr-3" style="width:80px;" type="submit"
+                            [disabled]="!purchaseForm.valid">
+                            Save
+                        </button>
+                        <button class="btn btn-outline-secondary mr-3" style="width:80px;" type="button"
+                            title="Cancel your edits" [routerLink]="['/purchases']">
+                            Cancel
+                        </button>
+                        <button class="btn btn-outline-danger" style="width:80px" type="button"
+                            title="Delete this product"
+                            (click)="deleteProduct()">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- <div class="alert alert-danger">
+            errorMessage
+        </div> -->
+    </div>
+
+
+</main>
+
+
+<br>Dirty: {{ purchaseForm.dirty }}
+<br>Touched: {{ purchaseForm.touched }}
+<br>Valid: {{ purchaseForm.valid }}
+<br>Value: {{ purchaseForm.value | json }}
+<br>Street: {{ purchase_detail.get('0.productVariation')?.value }}
+
+<app-footer></app-footer>

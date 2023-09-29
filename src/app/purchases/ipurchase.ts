@@ -1,5 +1,5 @@
 export interface IPurchase {
-    id: number;
+    id: number | null;
     code: string;
     date: string;
     purchase_detail: IPurchaseDetail[];

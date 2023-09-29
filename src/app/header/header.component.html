@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Djangolar API Market</a>
+    <a class="navbar-brand" [routerLink]="['/products']">Djangular API Market</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
       data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
       aria-label="Toggle navigation">
@@ -12,7 +12,7 @@
       </span>
       <div class="d-grid d-lg-block">
         <button class="btn btn-warning m-1" type="button" [routerLink]="['/purchases']">Purchases</button>
-        <button class="btn btn-warning m-1" type="button">Create Purchases</button>
+        <button class="btn btn-warning m-1" type="button" [routerLink]="['/purchases', 0, 'edit']">Create Purchases</button>
         <button class="btn btn-warning m-1" type="button">Sales</button>
         <button class="btn btn-warning m-1" type="button">Create Sales</button>
         <button class="btn btn-warning m-1" type="button" (click)="logOut()">Logout</button>
