@@ -15,6 +15,7 @@ export interface IProductVariation {
     excerpt: string | null;
     description: string | null;
     image_url: string | null;
+    current_quantity: number;
   }
 
 export interface IProduct {

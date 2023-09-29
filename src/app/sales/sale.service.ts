@@ -3,7 +3,7 @@ import { Observable, combineLatest, of, forkJoin } from "rxjs";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, map, switchMap } from 'rxjs/operators';
 import { IProductVariation } from "../products/product";
-import { IPurchase } from './ipurchase';
+import { ISale } from './isale';
 
 import { AuthService } from '../user/auth.service';
 
@@ -12,28 +12,28 @@ import { ProductService } from '../products/product.service';
 @Injectable({
   providedIn: 'root'
 })
-export class PurchaseService {
+export class SaleService {
   private apiUrl = 'http://127.0.0.1:8000/';
-  private apiPurchasesUrl = 'api/purchases';
+  private apiSalesUrl = 'api/sales';
 
   constructor(private http: HttpClient, private authService: AuthService, private productService: ProductService) { }
 
-  private samplePurchase(): Observable<IPurchase[]> {
+  private sampleSale(): Observable<ISale[]> {
     return of([{
       "id": 1,
-      "code": "PO00001",
+      "code": "SI00001",
       "date": "2023-09-12",
-      "purchase_detail": [
+      "sale_detail": [
         {
           "product_variation": 1,
           "product_name": 'Test Product Name',
-          "quantity_purchased": 100
+          "quantity_released": 100
         }
       ]
     }]);
   }
 
-  getPurchases(): Observable<IPurchase[]> {
+  getSales(): Observable<ISale[]> {
 
     const token = this.authService.getToken();
 
@@ -42,27 +42,26 @@ export class PurchaseService {
         'Authorization': `Token ${token}`
       });
 
-      return this.http.get<IPurchase[]>(this.apiUrl + this.apiPurchasesUrl, { headers })
+      return this.http.get<ISale[]>(this.apiUrl + this.apiSalesUrl, { headers })
         .pipe(
           tap(data => console.log('All: ', JSON.stringify(data))),
         );
     }
     else {
-      return this.samplePurchase();
+      return this.sampleSale();
     }
   }
 
-  getPurchase(id: number): Observable<IPurchase | undefined> {
-    return this.getPurchases()
+  getSale(id: number): Observable<ISale | undefined> {
+    return this.getSales()
       .pipe(
-        map((purchases: IPurchase[]) => purchases.find(p => p.id === id))
+        map((sales: ISale[]) => sales.find(s => s.id === id))
       );
-  }
+  }  
 
-
-  getPurchaseWithProductDetails(id: number): Observable<IPurchase | undefined> {
+  getSaleWithProductDetails(id: number): Observable<ISale | undefined> {
     if (id === 0) {
-      return of(this.initializePurchase());
+      return of(this.initializeSale());
     }
 
     const token = this.authService.getToken();
@@ -70,21 +69,21 @@ export class PurchaseService {
       'Authorization': `Token ${token}`
     });
 
-    // Fetch the single purchase by ID
-    const purchase$ = this.http.get<IPurchase>(`${this.apiUrl}${this.apiPurchasesUrl}/${id}`, { headers });
+    // Fetch the single sale by ID
+    const sale$ = this.http.get<ISale>(`${this.apiUrl}${this.apiSalesUrl}/${id}`, { headers });
 
     // Fetch the products
     const products$ = this.productService.products$;
 
     // Combine the purchase and products using forkJoin
-    return forkJoin([purchase$, products$]).pipe(
-      map(([purchase, products]) => {
-        if (!purchase) {
+    return forkJoin([sale$, products$]).pipe(
+      map(([sale, products]) => {
+        if (!sale) {
           return undefined; // Handle the case where the purchase is not found
         }
 
-        // Map purchase_detail to include product names
-        const updatedPurchaseDetail = purchase.purchase_detail.map(detail => {
+        // Map sale_detail to include product names
+        const updatedSaleDetail = sale.sale_detail.map(detail => {
           const product = products.find(p => p.id === detail.product_variation);
           return {
             ...detail,
@@ -92,68 +91,47 @@ export class PurchaseService {
           };
         });
 
-        // Create a new purchase object with updated purchase_detail
-        const updatedPurchase = {
-          ...purchase,
-          purchase_detail: updatedPurchaseDetail,
-          searchKey: [purchase.code]
-        } as IPurchase;
+        // Create a new purchase object with updated sale_detail
+        const updatedSale = {
+          ...sale,
+          sale_detail: updatedSaleDetail,
+          searchKey: [sale.code]
+        } as ISale;
 
-        return updatedPurchase;
+        return updatedSale;
       })
     );
-  }
+  }  
 
-
-  private initializePurchase(): IPurchase {
+  private initializeSale(): ISale {
     // Return an initialized object
     return {
       id: 0,
       code: '',
       date: '',
-      purchase_detail: []
+      sale_detail: []
     };
   }
 
-
-  createPurchase(purchase: IPurchase): Observable<IPurchase> {
+  createSale(sale: ISale): Observable<ISale> {
     const token = this.authService.getToken();
 
     const headers = new HttpHeaders({ 
       'Content-Type': 'application/json',
       'Authorization': `Token ${token}`
     });
-    purchase.id = null;
+    sale.id = null;
 
-    const url = `${this.apiUrl}${this.apiPurchasesUrl}/`;
+    const url = `${this.apiUrl}${this.apiSalesUrl}/`;
 
-    return this.http.post<IPurchase>(url, purchase, { headers })
+    return this.http.post<ISale>(url, sale, { headers })
       .pipe(
-        tap(data => console.log('createPurchase: ' + JSON.stringify(data))),
+        tap(data => console.log('createSale: ' + JSON.stringify(data))),
         // catchError(this.handleError)
       );
   }
 
-  updatePurchase(purchase: IPurchase): Observable<IPurchase> {
-    const token = this.authService.getToken();
-
-    const headers = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Token ${token}`
-    });
-
-    const url = `${this.apiUrl}${this.apiPurchasesUrl}/${purchase.id}/`;
-
-    return this.http.put<IPurchase>(url, purchase, { headers })
-      .pipe(
-        tap(() => console.log('updateProduct: ' + purchase.id)),
-        // Return the product on an update
-        map(() => purchase),
-        // catchError(this.handleError)
-      );
-  }
-
-  deletePurchase(id: number): Observable<{}> {
+  updateSale(sale: ISale): Observable<ISale> {
     const token = this.authService.getToken();
 
     const headers = new HttpHeaders({ 
@@ -161,18 +139,32 @@ export class PurchaseService {
       'Authorization': `Token ${token}`
     });
 
-    const url = `${this.apiUrl}${this.apiPurchasesUrl}/${id}/`;
+    const url = `${this.apiUrl}${this.apiSalesUrl}/${sale.id}/`;
 
-    return this.http.delete<IPurchase>(url, { headers })
+    return this.http.put<ISale>(url, sale, { headers })
       .pipe(
-        tap(data => console.log('deleteProduct: ' + id)),
+        tap(() => console.log('updateSale: ' + sale.id)),
+        map(() => sale),
         // catchError(this.handleError)
       );
   }
 
+  deleteSale(id: number): Observable<{}> {
+    const token = this.authService.getToken();
 
+    const headers = new HttpHeaders({ 
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${token}`
+    });
 
+    const url = `${this.apiUrl}${this.apiSalesUrl}/${id}/`;
 
+    return this.http.delete<ISale>(url, { headers })
+      .pipe(
+        tap(data => console.log('deleteSale: ' + id)),
+        // catchError(this.handleError)
+      );
+  }
 
 
 }

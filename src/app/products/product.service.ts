@@ -42,7 +42,8 @@ export class ProductService {
       "name": "TJ Hotdog Classic",
       "excerpt": "Lorem ipsum dolor sit amet.",
       "description": "This is the description",
-      "image_url": "https://placehold.co/300"
+      "image_url": "https://placehold.co/300",
+      "current_quantity": 100
     }]);
   }
 

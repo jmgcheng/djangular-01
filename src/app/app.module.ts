@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ProductModule } from './products/product.module';
 import { PurchaseModule } from './purchases/purchase.module';
+import { SaleModule } from './sales/sale.module';
 
 
 import { SharedModule } from './shared/shared.module';
@@ -43,6 +44,7 @@ import { UserModule } from './user/user.module';
     ProductModule,
     UserModule,
     PurchaseModule,
+    SaleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

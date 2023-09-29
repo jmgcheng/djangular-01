@@ -13,8 +13,8 @@
       <div class="d-grid d-lg-block">
         <button class="btn btn-warning m-1" type="button" [routerLink]="['/purchases']">Purchases</button>
         <button class="btn btn-warning m-1" type="button" [routerLink]="['/purchases', 0, 'edit']">Create Purchases</button>
-        <button class="btn btn-warning m-1" type="button">Sales</button>
-        <button class="btn btn-warning m-1" type="button">Create Sales</button>
+        <button class="btn btn-warning m-1" type="button" [routerLink]="['/sales']">Sales</button>
+        <button class="btn btn-warning m-1" type="button" [routerLink]="['/sales', 0, 'edit']">Create Sales</button>
         <button class="btn btn-warning m-1" type="button" (click)="logOut()">Logout</button>
       </div>
     </div>

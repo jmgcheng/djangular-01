@@ -99,13 +99,6 @@ export class PurchaseEditComponent implements OnInit {
       });
       this.populatePurchase_detail();
     }
-
-
-
-    /* 
-    this.purchaseForm.setControl('purchase_detail', this.fb.array( this.purchase?.purchase_detail || [] ));
-    this.productForm.setControl('tags', this.fb.array(this.product.tags || [])); 
-    */
   }
 
 
@@ -153,7 +146,7 @@ export class PurchaseEditComponent implements OnInit {
 
         if (p.id === 0) {
           console.log('saving new one');
-          
+
           this.purchaseService.createPurchase(p)
             .subscribe({
               next: x => {
@@ -162,7 +155,7 @@ export class PurchaseEditComponent implements OnInit {
               },
               // error: err => this.errorMessage = err
             });
-        } 
+        }
         else {
           console.log('updating');
           this.purchaseService.updatePurchase(p)
@@ -171,14 +164,11 @@ export class PurchaseEditComponent implements OnInit {
               // error: err => this.errorMessage = err
             });
         }
-
-
-
-      } 
+      }
       else {
         this.onSaveComplete();
       }
-    } 
+    }
     else {
       // this.errorMessage = 'Please correct the validation errors.';
       console.log('error hermit 1');
@@ -186,7 +176,7 @@ export class PurchaseEditComponent implements OnInit {
 
   }
 
-  deleteProduct(): void {
+  deletePurchase(): void {
     if (this.purchase?.id === 0) {
       // Don't delete, it was never saved.
       this.onSaveComplete();

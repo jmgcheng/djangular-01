@@ -1,0 +1,39 @@
+<app-header></app-header>
+
+<main class="container-sm">
+
+    <div class="row">
+        <div class="col">
+
+
+            <table class="table table-hover" *ngIf='sales' >
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>SI Code</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let sale of sales" >
+                        <th>{{sale.id}}</th>
+                        <td>
+                            <a [routerLink]="['/sales', sale.id]">
+                                {{sale.code}}
+                            </a>
+                        </td>
+                        <td>{{sale.date}}</td>
+                    </tr>
+                    
+                </tbody>
+
+            </table>
+
+
+        </div>
+    </div>
+
+</main>
+
+
+<app-footer></app-footer>
