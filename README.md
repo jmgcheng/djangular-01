@@ -1,5 +1,29 @@
 # Angular Routine 01 Setup - Home with Products, About Us static, Product List, Product Detail, fake api
 
+## Project Version - ng version
+```
+Angular CLI: 16.2.3
+Node: 18.18.0
+Package Manager: npm 9.8.1
+OS: win32 x64
+
+Angular: 16.2.6
+... animations, common, compiler, compiler-cli, core, forms
+... platform-browser, platform-browser-dynamic, router
+
+Package                         Version
+---------------------------------------------------------
+@angular-devkit/architect       0.1602.3
+@angular-devkit/build-angular   16.2.3
+@angular-devkit/core            16.2.3
+@angular-devkit/schematics      16.2.3
+@angular/cli                    16.2.3
+@schematics/angular             16.2.3
+rxjs                            7.8.1
+typescript                      5.1.6
+zone.js                         0.13.3
+```
+
 ## Step 1 - setup project
 ```angular
 cd desktop
