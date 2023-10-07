@@ -10,7 +10,7 @@ import { AuthService } from '../user/auth.service';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:8000/';
+  private apiUrl = 'https://chengs1.net/';
   /* 
     http://localhost:8000/
       - this was an instance of customUserBlogProdInvApi01

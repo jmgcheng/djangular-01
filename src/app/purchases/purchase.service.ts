@@ -13,7 +13,7 @@ import { ProductService } from '../products/product.service';
   providedIn: 'root'
 })
 export class PurchaseService {
-  private apiUrl = 'http://127.0.0.1:8000/';
+  private apiUrl = 'https://chengs1.net/';
   /* 
     http://localhost:8000/
       - this was an instance of customUserBlogProdInvApi01
